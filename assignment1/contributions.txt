@@ -1,0 +1,7 @@
+For this assignment,
+
+1. We seperately went through the assignments and did the postgres installation.
+2. For the first 3 questions, just so both of us could get used to postgres, we worked seperately.
+3. For questions 4, 6 and 8, we sat together and worked out queries and and then discussed and came up with the most optimal answers.
+
+After completing this assignment we both feel comfortable working with SQL queries, creating views and understanding the importances of the Integrity constraints. 

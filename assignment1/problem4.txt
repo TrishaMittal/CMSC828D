@@ -1,0 +1,70 @@
+/* 
+4.1
+*/
+SELECT DISTINCT Carriers.name
+FROM Flights,Carriers
+WHERE Flights.carrier_id = Carriers.cid
+GROUP BY Flights.month_id , Flights.day_of_month, Carriers.name
+HAVING COUNT(*) > 1000;
+
+/* 
+4.2
+*/
+SELECT Carriers.name AS Carrier, MAX(Flights.price) AS MaxPrice 
+FROM Flights, Carriers 
+WHERE Flights.carrier_id=carriers.cid AND flights.origin_city IN ('Washington DC' ,'Seattle WA') AND flights.dest_city IN ('Washington DC' ,'Seattle WA') 
+GROUP BY Carriers.name;
+
+/* 
+4.3
+*/
+SELECT DISTINCT Flights.flight_num
+FROM Flights,Carriers, Weekdays
+WHERE Flights.carrier_id = Carriers.cid AND Flights.origin_city LIKE 'Seattle%' AND  Flights.dest_city LIKE 'Boston%' AND Carriers.name = 'Alaska Airlines Inc.' AND Flights.day_of_week_id = Weekdays.did AND Weekdays.day_of_week = 'Monday';
+
+/* 
+4.4
+*/
+SELECT carrier_id, name 
+FROM (SELECT DISTINCT Flights.carrier_id, Carriers.name , COUNT(DISTINCT Flights.flight_num)
+FROM Flights,Carriers
+WHERE Flights.carrier_id = Carriers.cid
+GROUP BY Carriers.name,Flights.carrier_id
+ORDER BY COUNT(DISTINCT Flights.flight_num) ASC
+LIMIT 1) AS A ;
+
+/* 
+4.5
+*/
+SELECT FLights.day_of_week_id, Weekdays.day_of_week
+FROM Flights,Weekdays
+WHERE FLights.day_of_week_id = Weekdays.did
+GROUP BY FLights.day_of_week_id, Weekdays.day_of_week
+ORDER BY AVG(Flights.price)
+DESC LIMIT 1;
+
+/* 
+4.6
+*/
+SELECT Carriers.name, (1.0*SUM(canceled)/COUNT(*))*100 AS percent
+FROM Flights, Carriers
+WHERE Flights.carrier_id = Carriers.cid AND Flights.origin_city = 'Washington DC'
+GROUP BY Carriers.name
+HAVING (1.0*SUM(canceled)/COUNT(*))*100 > 0.5 ORDER BY percent;
+
+/* 
+4.7
+*/
+SELECT Carriers.name , SUM(Flights.departure_delay) AS delay
+FROM Flights,Carriers
+WHERE Flights.carrier_id = Carriers.cid
+GROUP BY Carriers.name;
+
+/* 
+4.8
+*/
+SELECT carriers.name, F1.flight_num AS f1_flight_num, F1.origin_city AS f1_origin_city, F1.dest_city AS f1_dest_city, F1.actual_time AS f1_actual_time,
+F2.flight_num AS f2_flight_num, F2.origin_city AS F2_origin_city, F2.dest_city AS f2_dest_city, F2.actual_time AS f2_actual_time, (F1.actual_time + F2.actual_time) AS actual_time
+FROM Flights AS F1, Flights AS F2, Carriers, Months
+WHERE F1.carrier_id = Carriers.cid AND F2.carrier_id = Carriers.cid AND F1.month_id = Months.mid AND F2.month_id = Months.mid AND Months.month = 'July'
+AND F1.day_of_month = 15 AND F2.day_of_month = 15 AND F1.carrier_id = F2.carrier_id AND F1.origin_city = 'Washington DC' AND F1.dest_city = F2.origin_city AND F2.dest_city = 'Las Vegas NV' AND F1.actual_time + F2.actual_time < 480;

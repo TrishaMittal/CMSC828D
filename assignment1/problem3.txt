@@ -1,0 +1,39 @@
+/* 
+3.1
+*/
+INSERT INTO Carriers 
+VALUES (-1, 'my carrier');
+
+/* 
+3.2
+*/
+COPY Flights 
+FROM 'assignment1/flights.csv' 
+WITH (FORMAT csv);
+
+/* 
+3.3
+*/
+COPY Carriers 
+FROM 'assignment1/carriers.csv' 
+WITH (FORMAT csv);
+
+/* 
+3.4
+*/
+COPY Months 
+FROM 'assignment1/months.csv' 
+WITH (FORMAT csv);
+
+/* 
+3.5
+*/
+COPY Weekdays 
+FROM 'assignment1/weekdays.csv' 
+WITH (FORMAT csv);
+
+/* 
+3.5
+*/
+DELETE FROM Carriers 
+WHERE cid='-1';

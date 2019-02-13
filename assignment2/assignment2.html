@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0070)https://courses.cs.washington.edu/courses/cse512/18sp/a2-template.html -->
+<html xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>CMSC828D -- Assignment 2</title>
+  <style>
+* { padding: 0; margin: 0; }
+
+body {
+  margin: 0 auto 0 auto;
+  padding: 0;
+  background-color: #33333f;
+  width: 840px;
+  font-family: "Avenir", "Avenir Next", Helvetica Neue, Arial;
+  font-size: 0.95em;
+}
+
+a, a:visited { text-decoration: none; color: #7533f4; }
+a:hover { text-decoration: underline; color: #f4b014; }
+img, a.img, a:hover.img { border: none; }
+
+img {
+  max-width: 800px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #492a7c;
+  background-color: inherit;
+  font-weight: normal;
+  padding: 0 0 5px 0;
+  margin: 15px 0 0 0;
+  border: none;
+  clear: right;
+}
+h1 { font-size: 18pt; margin:  5px 0 10px 0; line-height: 28px; }
+h2 { font-size: 14pt; margin: 30px 0 15px 0; letter-spacing: 0.01em; border-bottom: 1px solid #ccc;  line-height: 20px;}
+h3 { font-size: 13pt; }
+h4 { font-size: 12pt; }
+h5 { font-size: 11pt; }
+p { margin: 0 0 10px 0; }
+hr { border: 0px; border-top: 1px solid #ccc; height: 0px; }
+ol { margin: 1em; }
+
+.content {
+  margin: 0;
+  padding: 15px 20px;
+  background-color: #ffffff;
+}
+
+.article {
+  line-height: 1.5em;
+}
+
+.entry  {
+  border-top: 1px solid #ddd;
+  padding-top: 2px;
+  margin-top: 3em;
+}
+
+  </style>
+</head>
+
+<body>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  * {
+      box-sizing: border-box;
+  }
+
+  .row {
+      display: flex;
+  }
+
+  /* Create three equal columns that sits next to each other */
+  .column {
+      flex: 50%;
+      padding: 5px;
+  }
+  </style>
+<div class="content">
+
+<section>
+  <h1>Assignment 2: Exploratory Data Analysis</h1>
+
+  <p>
+    <strong>Abhishek Bassan</strong> —
+    <em>abhibass@cs.umd.edu</em>
+  </p>
+  <p>
+    <strong>Trisha Mittal</strong> —
+    <em>trisha@cs.umd.edu</em>
+  </p>
+
+</section>
+
+<section>
+  <h2>Dataset</h2>
+
+  <p>
+    The Chicago Crimes Dataset contains the details of the reported incidents from 2001 onwards in Chicago. Data is extracted from the
+    Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system. There are 6,709,800 records in the dataset.
+    We wanted to explore and discover the underlying patterns in the data, uncover the relations among different attributes of the dataset and
+    also relate them to real-world scenarios. This would be a good practice of visualisation for us, as we are new to this data, we will go in an iterative loop over making
+    insights and providing better visualisations.<br>
+  </p>
+
+  <p>
+    The data is available online at:
+    <strong>
+      <a href="https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g">Dataset url.</a>
+    </strong>
+  </p>
+</section>
+
+<section>
+  <h2>Initial Analysis Questions</h2>
+  <ol>
+    <li>Question1: Is it possible to build an interface, where a resident of Chicago, can analyse his/her current neighbourhood or could use it to analyse the security of
+      the new neighbourhood they are potentially thinking of moving into? </li>
+    <li>Question2: Interesting patterns over time about rate of crimes? </li>
+    <li>Question3: Can we create a visualisation that the authorities can make use of for allocating resources over different districts? Every district would have their unique
+    set of priorities. Can it help the police authorities in coming up with an efficient methodology to combat crimes in different districts optimally?</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Discoveries &amp; Insights</h2>
+  <h4> Part 1: Understanding the Data </h4>
+  <ol>
+  <p> We were new to the data, so to begin with we tried simple visualisations for getting a sense of the data.</p>
+
+  <li>We try to look at the different types of crime happening in Chicago.</li>
+  <div class="entry">
+    <img src="1.png">
+    <p class="caption">
+    <h5><center>Crime-type distribution of crimes in Chicago.</center></h5>
+    </p>
+  </div>
+  <p>This is a simple bar graph depicting the distribution of all crime types reported since 2001 in Chicago. We see that 'Theft' and 'Battery' are the most common type of crimes.
+  But also we find unusually low number(1) for 'Domestic Violence'.This number is very low. It is possible, that they are reclassified in some other category or are not reported
+  in this data and this just a anomaly.</p>
+  <li> Next, we try to look at the location descriptions where these crimes take place.</li>
+  <div class="entry">
+    <img src="2.png">
+    <p class="caption">
+    <h5><center>Crime-location-description distribution of crimes in Chicago.</center></h5>
+    </p>
+  </div>
+  We see that most of the crimes happen in 15-20 locations. To get a more insightful visualisation, we only look at the top 20 location-descriptions.
+  <div class="entry">
+    <img src="3.png">
+    <p class="caption">
+    <h5><center>Crime-location-description (top 20 locations) distribution of crimes in Chicago.</center></h5>
+    </p>
+  </div>
+  We can see that as expected streets are most crime-prone location. We can also observe that apartments are generaly safer than residences.<br><br>
+  <li>The next step is to look at the districts which are most prone to crimes in Chicago.</li>
+  <div class="entry">
+    <img src="4.png">
+    <p class="caption">
+    <h5><center>Districts prone to more crimes in Chicago.</center></h5>
+    </p>
+  </div>
+  From the above bar graph, it seems that district 8 is least safe. But, it needs to be normalised with the population of the district to get the correct estimate of the crime rate.
+  Also, the district 31 and 21 have unusually low crime numbers. This might be because they have very low population or this data doesn't contain the complete data for these districts.
+</ol>
+  <h4> Part 2: Temporal Analysis of Crimes </h4>
+  <ol>
+    <li> The next thing to explore was the time of the day most prone to crimes. Here, we use a heat-map representing the number of crimes reported at that time of the
+      hour, over the years. </li>
+  <div class="entry">
+    <img src="5.png">
+    <p class="caption">
+    <h5><center>Crime-time analysis for all crimes</center></h5>
+    </p>
+  </div>
+  We can observe that most of the crimes happen between 2 PM and 1 AM. But we observe that there is unusual increase increase in crime around 12 noon. This data can help police by allocating more people or bieng more prepared during these hours.<br><br>
+  <li> Here, we visualise the same thing, but distributed over different crime types. </li>
+  <div class="entry">
+    <img src="6.png">
+    <p class="caption">
+    <h5><center>Crime-time analysis for all crime types</center></h5>
+    </p>
+  </div>
+  <p> Because there is very big skew towards top 5 crimes the differentiation in color in the crimes with low crime number is very difficult. For example, from this visualisation
+  it looks like 'Gambling' has uniform distribution.</p>
+  <li> But we can select the particular crime type. That would give a more comprehensive picture.</li>
+  <div class="entry">
+    <img src="7.png">
+    <p class="caption">
+    <h5><center>Crime-time analysis for all incidents of 'Gambling'</center></h5>
+    </p>
+  </div>
+ <li> Another similar analysis was to see, what kind of locations are safe at what time of the day.</li>
+  <div class="entry">
+    <img src="8.png" style="width:100%">
+    <p class="caption">
+    <h5><center>Crime-time analysis for location types</center></h5>
+    </p>
+  </div>
+   <li>We can also visualise how number of crimes change over months.</li>
+   <div class="entry">
+    <img src="a2.png" style="width:100%">
+    <p class="caption">
+    <h5><center>Crime trend over month</center></h5>
+    </p>
+  </div>
+  <p> We can observe that crime number drops between the months of November and February. This may be because of harsh weather conditions during winter. This time could be utilised is doing non field-work like additional training for officers.Non critical administartive work can be scheduled during this time so officers have more time during busy months.</p>
+</ol>
+<h4> Part 3: Crime trend analysis for Different Districts </h4>
+<ol>
+<li> We want to see if the type and number of crimes are different for different districts. Tableau with its ease of linking two visualisations, makes it easy for us to view this
+  trend for any individual district that we select. Here, is a screenshot of the dashboard.</li>
+  <div class="entry">
+    <img src="9.png">
+    <p class="caption">
+    <h5><center> Crime trend Analysis for an individual district. </center></h5>
+    </p>
+  </div>
+<li> To further reinforce the point, we look at the crime-trends in the two most unsafe districts, District 8 and 11.
+  <div class="row">
+  <div class="column">
+    <img src="10.png" alt="Snow" style="width:100%">
+    <p class="caption">
+    <h5><center>Crime trend Analysis for District 8 (most unsafe District).</center></h5>
+    </p>
+  </div>
+  <div class="column">
+    <img src="11.png" alt="Forest" style="width:100%">
+    <p class="caption">
+    <h5><center>Crime trend Analysis for District 11 (second-most unsafe District).</center></h5>
+    </p>
+  </div>
+  </div>
+While 'Theft' seems to be the major crime in District 8, District 11 has severe amount of cases of 'Narcotics'. This tells us that different districts have different crime distribution and need to have different resource allocation. 
+</ol>
+<h4> Part 4: Crime Location Analysis </h4>
+<ol>
+<li> The next we look into is what location types, do most crimes take place in. We use this tree-map visualisation. </li>
+<div class="entry">
+  <img src="12.png">
+  <p class="caption">
+  <h5><center>Crime Location Analysis</center></h5>
+  </p>
+</div>
+<li>This visualisation looks very convoluted, so using the dashboard, we choose only the top-few locations and get a better visualisations for this.</li>
+<div class="entry">
+  <img src="13.png">
+  <p class="caption">
+  <h5><center>Screenshot of Dashboard</center></h5>
+  </p>
+</div>
+<div class="entry">
+  <img src="14.png">
+  <p class="caption">
+  <h5><center>Crime Location Analysis (for top few locations)</center></h5>
+Here, every tile represents a crime. And, within every crime, we see the distribution of the locations that crime has been reported in. The size of the each tile also
+tells us how common the crimes are, making the visualisation even more informative.
+</ol>
+<h4> Part 5: Geographical Analysis </h4>
+<ol>
+<li> We plot each type of crime on the map with each dot's size corresponding to number of records (crimes) reported in that block. </li>
+<div class="entry">
+  <img src="15.png">
+  <p class="caption">
+  <h5><center>Geographical View of Crimes</center></h5>
+  </p>
+</div>
+There seems to be occlusion by the crimes that appear top in the list ('Arson' and 'Assault'). The 'Assault' incidents seem to be uniformly distributed
+but 'Arson' incidents seem to be away from coast.<br><br>
+<li>For other crimes we have to apply filters for individual crime type to get its distribution. Almost all have uniform distribution but some like gambling are concentrated
+is some location. </li>
+<div class="entry">
+  <img src="16.png">
+  <p class="caption">
+  <h5><center>Geographical View of 'Gambling' Crime</center></h5>
+  </p>
+</div>
+<li> We can identify unsafe nieghbourhoods by selecting the blocks which have highest number of reported crimes. This will give us idea about the neighbourhoods to avoid when relocating in chicago.
+</li>
+<div class="entry">
+        <img src="a1b.png">
+        <p class="caption">
+        <h5><center>Areas with high crime rates</center></h5>
+        </p>
+</div>
+</ol>
+<h4> Part 6: Overall Crime Stats and Police Arrest Analysis </h4>
+<ol>
+<li> We first plot the number of crimes, reported every month and year. </li>
+<div class="entry">
+  <img src="17.png">
+  <p class="caption">
+  <h5><center>Overall crime Statistics over the years</center></h5>
+  </p>
+</div>
+Some interesting observations here are that the overall crimes are going down. Also, as expected, there is a dip in the number of crimes towards the beginning and end of every year.
+Also we see a sudden drop in end. This is because the data for month of September is incomplete.<br><br>
+<li> We now analyse this trend along with the number of arrests made in the reported incidents for every crime type. </li>
+<div class="entry">
+  <img src="18.png">
+  <p class="caption">
+  <h5><center>Arrests Made in Reported Crimes per crime type over the years </center></h5>
+  </p>
+</div>
+<li>As some crime have very low frequency this is little difficult to analyse. Using dashboard to select only top crime by number of records.
+  This helps us get a better visualisationsfor the previous task.</li>
+<div class="entry">
+  <img src="19.png">
+  <p class="caption">
+  <h5><center>Screenshot of the Dashboard</center></h5>
+  </p>
+</div>
+<div class="entry">
+  <img src="20.png">
+  <p class="caption">
+  <h5><center>Arrests Made in Reported Crimes per crime type over the years (for top crime types)</center></h5>
+  </p>
+</div>
+We see that offense like narcotics very high rate of arrest where as burgalary have less success rate.<br><br>
+<li> We can also have an approximate idea about rate of improvement in each crime by plotting the trend
+line and noting its slope. It gives an approximate idea. For this, we removed data from 2018 as it might
+ have incomplete data, and can cause an anomaly. Maybe better model is exponential as crime in long time is supposed to saturate to zero.
+ So we plot for exponential trend line also.</li>
+ <div class="row">
+ <div class="column">
+   <img src="21.png" alt="Snow" style="width:100%">
+   <p class="caption">
+   <h5><center>Crime Statistics over years with a trendline.</center></h5>
+   </p>
+ </div>
+ <div class="column">
+   <img src="22.png" alt="Forest" style="width:100%">
+   <p class="caption">
+   <h5><center>Crime Statistics over years with a exponential trendline.</center></h5>
+   </p>
+ </div>
+ </div>
+ We can compare rate of improvement in crimes by comparing the slopes of the trend line. For example, we see the slope of "theft" and "narcotics" is -0.60 and -0.61 respectively. So, they have same improvement despite the fact that narcotics have much higher rate of arrest.<br><br>
+</ol>
+  <div class="entry">
+    <h3>Summary</h3>
+    <p>
+    We re-visit the Initial Analysis Questions that we asked and provide visualisationsfor them.
+    <ol>
+      <li>Question1: Is it possible to build an interface, where a resident of Chicago, can analyse his/her current neighbourhood or could use it to analyse the security of
+        the new neighbourhood they are potentially thinking of moving into? <br>
+		a) We saw that some districts are more crime prone than others and can be avoided<br>
+		b) We also identified the dangerous neighbourhoods using the data for blocks. <br>
+		Using this information users can take informed decision about choosing thier neighbourhood<br><br>
+		
+		</li>
+        
+        
+      <li>Question2: Interesting patterns over time about rate of crimes? </li>
+      
+      We observed following interesting patterns:
+	  <br>a) The crime rate goes down during winter.
+	  <br>b) We identified the time during the day which are more unsafe.
+	  <br>c) We also identified which places are unsafe at what time<br><br>
+      <li>Question3: Can we create a visualisation that the authorities can make use of for allocating resources over different districts? Every district would have their unique
+      set of priorities. Can it help the police authorities in coming up with an efficient methodology to combat crimes in different districts optimally?</li>
+		a) We saw that different districts have different dominant crime
+	  <br>b) We also found out the time of day and the months which have higher crime rate.
+	  <br>The above data can be used for appropriate allocation of resources.
+      
+    </ol>
+
+    </p>
+  </div>
+</section>
+<section>
+  <h2>Evaluation of Tool</h2>
+  <div class="entry">
+    <h3>Strengths</h3>
+    <p>
+      STRENGTH 1: The process of generating visualisations was very simple as Tableau is UI-centric and not script-centric. The process is fast with good response times.
+      Switching between different types of encodings is very quick and hence enables one to settle on the one which could give the most insight into the data.</li>
+    </p>
+    <p>
+      STRENGTH 2: Splitting of attributes is extremely easy. Moreover, Tableau can understand attribute-types like Date. For instance,
+      we had a attribute named Date, which contained date in the format mm/dd/yyyy along with the timestamp in the format hh:mm:ss AM/PM.
+      While doing the visualisations, with a simple drop-down menu, we were able to choose if we wanted to plot the date, in year, month,
+      date or day format.</li>
+    </p>
+    <p>
+      STRENGTH 3: Combining two views with the help of dashboard made the process of exploration and deriving conclusions even easier. For instance, it was easier to make
+      comparisons about crime trends in different districts. We have added screenshots for this in the previous section, wherever we exploited this feature of Tableau.</li>
+    </p>
+  </div>
+  <div class="entry">
+    <h3>Weaknesses</h3>
+    <p>
+    WEAKNESS 1: Whatever plethora of features that Tableau provides us with are extremely good and make the visualisation process fun. But, if one wants to try and
+    experiment something out of this, one can face limitations. For instance, to try and make line graph, it is mandatory that one of the fields has to be Date. That's
+    in a way a limitation.</li>
+    </p>
+    <p>
+    WEAKNESS 2: While experimenting with a different dataset, we realised that though Tableau supports datasets in .json format, joining two tables directly in .json is
+    not permitted. Though there is a work around it using blending. This shows that not all features are present for all type of data sources</li>
+    </p>
+    <p>
+    WEAKNESS 3: Tableau Desktop is currently available only for Mac and Windows, and not for Linux. Moreover, not being an open-source software the documentation and
+    the Tableau user community is limited.</li>
+    </p>
+  </div>
+  <div class="entry">
+    <h3>Evaluation Summary and Discussion</h3>
+    <p>
+    The assignment helped us get comfortable at creating visualisations using the Tableau software. We were able to reason about what is a good visualisation and
+    what's a not-so-good visualisation. Starting with a dataset, which was new we were able to go over an iterative loop and come up with patterns and answers through the
+    visualisations we created. By the end-of-it we were very familiar with our dataset and also had some good insights, and were also able to create visualisations that
+    could be useful for groups of people.
+    We were able to use 6 unique types of visualisation techniques (Area graph, Bar graph, Line graph, Tree Map, Maps, Heat Map).
+    </p>
+  </div>
+</section>
+</div>
+
+</body></html>

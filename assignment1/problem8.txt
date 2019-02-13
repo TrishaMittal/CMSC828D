@@ -1,0 +1,46 @@
+/* 
+8.1
+*/
+CREATE VIEW Flights_Under_700 AS
+SELECT *
+FROM Flights
+WHERE price<700;
+
+/* 
+8.2
+*/
+SELECT * 
+FROM Flights_Under_700 
+WHERE origin_city LIKE '%Fort%' OR dest_city LIKE '%Fort%';
+
+/* 
+8.3
+*/
+CREATE VIEW FLightView AS
+SELECT Flights.flight_num, Weekdays.did, Weekdays.day_of_week, Carriers.name , Carriers.cid
+FROM Flights, Carriers, Weekdays
+WHERE Flights.carrier_id = Carriers.cid AND Flights.day_of_week_id = Weekdays.did;
+
+/* 
+8.4
+*/
+/*
+Given, Views are "Virtual Tables" created from one or more tables, they can be useful in the following manner.
+a. They can be used as a more user-centred and user-specific way of presenting/structuring only that data from the existing tables that he might need. 
+b. It can be a security measure, by giving access to the user of the only about certain attributes of the table and removing those which are supposed to be confidential. 
+c. It can be useful way of storing some part of the entire data as a stored query, which can be used again and again instead of the entire table when required. This way the computations are happening on a smaller set of data.
+d. Also, its a good way of summarising the data such that it can provide some meaningful insights.
+*/
+
+/*
+8.5
+*/
+/*
+It is indeed possible to update the tuples of a View. There are a lot of restrictions on that, but changes made here are reflected both in the View and the Base Table. 
+Some of the restrictions where such updates can be made are as follows:
+a. All the columns of the base table having NOT NULL as a constraint should be included in the View for the INSERT statement to work.
+b. If the base table contains colums which have Aggregate functions, those Views cannot be updated.
+c. Any update query comprising of a GROUP BY and HAVINg, or subqueries in WHERE are also not possible.
+
+From, the purpose of Views as listed in 8.4, we do not really consider such updates in Views as a really good idea. The whole point of View as the name suggests should be to provide a user with read-only access. 
+*/

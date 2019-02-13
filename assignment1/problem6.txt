@@ -1,0 +1,71 @@
+/* 
+6.1
+*/
+ALTER TABLE Flights
+ADD PRIMARY KEY (fid);
+
+ALTER TABLE Carriers
+ADD PRIMARY KEY (cid);
+
+ALTER TABLE Months
+ADD PRIMARY KEY (mid);
+
+ALTER TABLE Weekdays
+ADD PRIMARY KEY (did);
+
+/* 
+6.2
+*/
+ALTER TABLE Flights
+ADD CONSTRAINT flights_constraint
+FOREIGN KEY (carrier_id)
+REFERENCES Carriers(cid);
+
+ALTER TABLE Flights
+ADD CONSTRAINT flights_constraint1
+FOREIGN KEY (month_id)
+REFERENCES Months(mid);
+
+ALTER TABLE Flights
+ADD CONSTRAINT flights_constraint2
+FOREIGN KEY (day_of_week_id)
+REFERENCES Weekdays(did);
+
+/* 
+6.3
+*/
+INSERT INTO Carriers
+VALUES ('02Q', 'Test Airline');
+
+INSERT INTO Flights
+VALUES (-1,7,10,1,'TEST',10,'Los Angles CA','California','New York NY','New York',-6,25,-7,0,317,2475,10,461);
+
+/* 
+When we tried executing this query, we got the following error.
+ERROR:  duplicate key value violates unique constraint "carriers_pkey"
+DETAIL:  Key (cid)=(02Q) already exists.
+SQL state: 23505
+We were expecting this because, given cid is a Primary Key for the table Carriers, no duplicate entry would be allowed for that attribute. And we know that this cid '02Q' already exists in the table Carriers.
+
+When we tried inserting these set of values, where the carrier_id 'TEST' doesn't exist in the Carriers relation we got the following error. 
+ERROR:  insert or update on table "flights" violates foreign key constraint "flights_constraint"
+DETAIL:  Key (carrier_id)=(Test) is not present in table "carriers".
+SQL state: 23503
+We were expecting the following error, as we have applied FOREIGN KEY contraints such that Flights.carrier_id references Carriers.cid. 
+Given we try to insert an entry with a carrier_id not existing in the Carriers table, it results in defying the Referential Integrity Constraints. 
+Had these PRIMARY KEY and FOREIGN KEY constraints not been present in the tables, we would have been able to add the two tuples in the respective tables. 
+*/
+
+/* 
+6.4
+*/
+DELETE FROM Carriers
+WHERE cid = 'AA';
+
+/*
+When we tried deleting the entry in Carriers corresponding to cid 'AA', it ran into the following error.
+ERROR:  update or delete on table "carriers" violates foreign key constraint "flights_constraint" on table "flights"
+DETAIL:  Key (cid)=(AA) is still referenced from table "flights".
+SQL state: 23503
+We were once again expecting this result as its trying to break the referential integrity constraints. As the Flights carrier_id references the cid in Carriers realtion, we will have to delete the tuples corresponding to 'AA' in Flights before running this query.
+*/
